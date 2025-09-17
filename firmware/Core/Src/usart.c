@@ -25,16 +25,16 @@
 extern uint8_t Buffer1[1];
 extern uint16_t g_usart_rx_sta;
 extern uint8_t g_usart_rx_buffer[200];
-/* ¼ÓÈëÒÔÏÂ´úÂë, Ö§³Öprintfº¯Êı, ¶ø²»ĞèÒªÑ¡Ôñuse MicroLIB */
+/* é‡å®šå‘ printf åˆ° USARTï¼Œè¯·åœ¨å·¥ç¨‹ä¸­å¯ç”¨ use MicroLIBï¼ˆæˆ–ç›¸åº”é…ç½®ï¼‰ */
 
 #if 1
 
-#if (__ARMCC_VERSION >= 6010050)            /* Ê¹ÓÃAC6±àÒëÆ÷Ê± */
-__asm(".global __use_no_semihosting\n\t");  /* ÉùÃ÷²»Ê¹ÓÃ°ëÖ÷»úÄ£Ê½ */
-__asm(".global __ARM_use_no_argv \n\t");    /* AC6ÏÂĞèÒªÉùÃ÷mainº¯ÊıÎªÎŞ²ÎÊı¸ñÊ½£¬·ñÔò²¿·ÖÀı³Ì¿ÉÄÜ³öÏÖ°ëÖ÷»úÄ£Ê½ */
+#if (__ARMCC_VERSION >= 6010050)            /* ä½¿ç”¨ AC6 ç¼–è¯‘å™¨æ—¶ */
+__asm(".global __use_no_semihosting\n\t");  /* å…³é—­åŠä¸»æœºæ¨¡å¼ */
+__asm(".global __ARM_use_no_argv \n\t");    /* AC6 è¦æ±‚ main æ— å‚æ•°ï¼Œé¿å…è§¦å‘åŠä¸»æœº */
 
 #else
-/* Ê¹ÓÃAC5±àÒëÆ÷Ê±, ÒªÔÚÕâÀï¶¨Òå__FILE ºÍ ²»Ê¹ÓÃ°ëÖ÷»úÄ£Ê½ */
+/* ä½¿ç”¨ AC5 ç¼–è¯‘å™¨æ—¶ï¼Œéœ€è¦è‡ªå®šä¹‰ __FILE å¹¶å…³é—­åŠä¸»æœºæ¨¡å¼ */
 #pragma import(__use_no_semihosting)
 
 struct __FILE
@@ -47,14 +47,14 @@ struct __FILE
 
 #endif
 
-/* ²»Ê¹ÓÃ°ëÖ÷»úÄ£Ê½£¬ÖÁÉÙĞèÒªÖØ¶¨Òå_ttywrch\_sys_exit\_sys_command_stringº¯Êı,ÒÔÍ¬Ê±¼æÈİAC6ºÍAC5Ä£Ê½ */
+/* å…³é—­åŠä¸»æœºæ¨¡å¼æ—¶ï¼Œéœ€è¦é‡å®šä¹‰ _ttywrch/_sys_exit/_sys_command_stringï¼ˆAC6/AC5 é€šç”¨ï¼‰ */
 int _ttywrch(int ch)
 {
     ch = ch;
     return ch;
 }
 
-/* ¶¨Òå_sys_exit()ÒÔ±ÜÃâÊ¹ÓÃ°ëÖ÷»úÄ£Ê½ */
+/* é‡å®šä¹‰ _sys_exit() ä»¥é¿å…åŠä¸»æœº */
 void _sys_exit(int x)
 {
     x = x;
@@ -66,15 +66,15 @@ char *_sys_command_string(char *cmd, int len)
 }
 
 
-/* FILE ÔÚ stdio.hÀïÃæ¶¨Òå. */
+/* FILE åœ¨ stdio.h ä¸­å·²å®šä¹‰ */
 FILE __stdout;
 
-/* MDKÏÂĞèÒªÖØ¶¨Òåfputcº¯Êı, printfº¯Êı×îÖÕ»áÍ¨¹ıµ÷ÓÃfputcÊä³ö×Ö·û´®µ½´®¿Ú */
+/* MDK ç¯å¢ƒéœ€é‡å®šä¹‰ fputcï¼Œprintf æœ€ç»ˆé€šè¿‡æ­¤å‡½æ•°è¾“å‡ºåˆ°ä¸²å£ */
 int fputc(int ch, FILE *f)
 {
-    while ((USART1 ->SR & 0X40) == 0);     /* µÈ´ıÉÏÒ»¸ö×Ö·û·¢ËÍÍê³É */
+    while ((USART1 ->SR & 0X40) == 0);     /* ç­‰å¾…å‘é€ç§»ä½å¯„å­˜å™¨ç©º */
 
-    USART1 ->DR = (uint8_t)ch;             /* ½«Òª·¢ËÍµÄ×Ö·û ch Ğ´Èëµ½DR¼Ä´æÆ÷ */
+    USART1 ->DR = (uint8_t)ch;             /* å°†å­—ç¬¦ ch å†™å…¥ DR å‘é€ */
     return ch;
 	
 }
