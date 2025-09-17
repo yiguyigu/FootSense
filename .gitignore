@@ -53,3 +53,20 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# firmware files
+firmware/MDK-ARM/shoes/**
+!firmware/MDK-ARM/shoes.sct
+firmware/MDK-ARM/*.Bak
+firmware/MDK-ARM/*.uvguix.*
+firmware/MDK-ARM/*.htm
+firmware/MDK-ARM/*.map
+firmware/MDK-ARM/*.axf
+firmware/MDK-ARM/*.hex
+firmware/MDK-ARM/DebugConfig/**
+firmware/MDK-ARM/*/*.o
+firmware/MDK-ARM/*/*.d
+firmware/MDK-ARM/*/*.crf
+firmware/MDK-ARM/*/*.dep
+firmware/MDK-ARM/*/*.lnp
+firmware/MDK-ARM/startup_stm32f407xx.lst
